@@ -1,0 +1,49 @@
+id,parent,type,text,options,target,signal
+start,null,start,Welcome, let's have a chat.,,,
+N1_open,start,question,How did you perform today?,Strong and controlled|Solid and consistent|Struggled|Completely off,,
+N1_D1,N1_open,decision,,choice=Strong and controlled|Solid and consistent:N1_POS;choice=Struggled|Completely off:N1_NEG,,
+
+N1_POS,N1_D1,question,When things were going well, what had the biggest impact?,I was already confident|I adjusted as I went|The team supported me|Things just clicked,,axis1:internal
+N1_NEG,N1_D1,question,When things didn’t go as planned, what had the biggest impact?,Tried to adjust to the situation|Waited for direction|Felt stuck|Just waited for it to be over,,axis1:external
+
+N1_D2_POS,N1_POS,decision,,choice=I was already confident|I adjusted as I went:N1_R_INT;choice=The team supported me|Things just clicked:N1_R_EXT,,
+N1_D2_NEG,N1_NEG,decision,,choice=Tried to adjust to the situation:N1_R_INT;choice=Waited for direction|Felt stuck|Just waited for it to be over:N1_R_EXT,,
+
+N1_R_INT,N1_D2_POS,reflection,You stayed involved in the game. Even when things got tough, you made calls. That shows control.,,axis1:internal
+N1_R_EXT,N1_D2_NEG,reflection,It felt like the game was happening to you. Fair—but even then, there were moments you chose your response.,,axis1:external
+
+N1_bridge,N1_R_INT,bridge,Now shift from your performance to what you contributed to the team.,N2_open,
+N1_bridge2,N1_R_EXT,bridge,Now shift from your performance to what you contributed to the team.,N2_open,
+
+N2_open,N1_bridge,question,What was the highlight of your role?,I supported others beyond my role|I did my part well|I needed support|I felt others could have done more,,
+N2_D1,N2_open,decision,,choice=I supported others beyond my role|I did my part well:N2_POS;choice=I needed support|I felt others could have done more:N2_NEG,,
+
+N2_POS,N2_D1,question,What drove that contribution?,I stepped up where I was needed|I noticed gaps and tried correcting them|I wanted the team to succeed|It just felt natural,,axis2:contribution
+N2_NEG,N2_D1,question,What was behind that feeling?,Others weren’t pulling their weight|I expected more recognition|I was focused on myself|I didn’t feel responsible,,axis2:entitlement
+
+N2_D2_POS,N2_POS,decision,,choice=I stepped up where I was needed|I noticed gaps and tried correcting them:N2_R_CONTRIB;choice=I wanted the team to succeed|It just felt natural:N2_R_CONTRIB,,
+N2_D2_NEG,N2_NEG,decision,,choice=Others weren’t pulling their weight|I expected more recognition|I was focused on myself|I didn’t feel responsible:N2_R_ENT,,
+
+N2_R_CONTRIB,N2_D2_POS,reflection,You played for the team. That shows a collaborative mindset.,,axis2:contribution
+N2_R_ENT,N2_D2_NEG,reflection,Your attention stayed on what you didn’t get. Fair—but what did you still give?,,axis2:entitlement
+
+N2_bridge,N2_R_CONTRIB,bridge,Let’s widen the frame beyond you.,N3_open,
+N2_bridge2,N2_R_ENT,bridge,Let’s widen the frame beyond you.,N3_open,
+
+N3_open,N2_bridge,question,When you think about today, who comes to mind first?,Myself|My immediate team|A teammate who struggled|The bigger goal,,
+N3_D1,N3_open,decision,,choice=Myself:N3_SELF;choice=My immediate team|A teammate who struggled|The bigger goal:N3_OTHER,,
+
+N3_SELF,N3_D1,question,What held your focus there?,I was focused on my performance|I was dealing with my own challenges|I didn’t think beyond my role|I was just trying to get through,,axis3:self
+N3_OTHER,N3_D1,question,What expanded your focus?,Team performance mattered|Someone else needed support|The outcome mattered more than me|I saw the bigger picture,,axis3:altro
+
+N3_D2_SELF,N3_SELF,decision,,choice=I was focused on my performance|I was dealing with my own challenges|I didn’t think beyond my role|I was just trying to get through:N3_R_SELF,,
+N3_D2_OTHER,N3_OTHER,decision,,choice=Team performance mattered|Someone else needed support|The outcome mattered more than me|I saw the bigger picture:N3_R_OTHER,,
+
+N3_R_SELF,N3_D2_SELF,reflection,Your focus stayed tight on your own lane.,,axis3:self
+N3_R_OTHER,N3_D2_OTHER,reflection,You stepped beyond yourself.,,axis3:altro
+
+SUMMARY,N3_R_SELF,summary,Today you showed {axis1.dominant} control, leaned toward {axis2.dominant} contribution and held a {axis3.dominant} perspective.,,,
+SUMMARY2,N3_R_OTHER,summary,Today you showed {axis1.dominant} control, leaned toward {axis2.dominant} contribution and held a {axis3.dominant} perspective.,,,
+
+END,SUMMARY,end,Thank you for your time.,,,
+END2,SUMMARY2,end,Thank you for your time.,,,
